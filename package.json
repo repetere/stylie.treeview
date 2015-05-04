@@ -2,7 +2,7 @@
   "title": "Stylie Treeview",
   "name": "stylie.treeview",
   "description": "Stylie Treeviews, pure CSS tree menu, port from: http://www.thecssninja.com/css/css-tree-menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "engines": {
     "node": ">=0.10.x"

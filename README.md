@@ -72,40 +72,40 @@ li.file a[href $= '.js']      { background-position: -64px -1px; }
 ## Generate with javascript
 ```json
 var sampletree = {
-	'tree': [{
-		'tree-item': 'file',
-		'tree-item-label': 'File Main 1',
-		'tree-item-id': 'file1',
-		'tree-item-link': '#mainlink',
-		'tree-item-attributes': {
-			'class': 'added-async-link another-class',
-			'title': 'this is a file link'
+	"tree": [{
+		"tree-item": "file",
+		"tree-item-label": "File Main 1",
+		"tree-item-id": "file1",
+		"tree-item-link": "#mainlink",
+		"tree-item-attributes": {
+			"class": "added-async-link another-class",
+			"title": "this is a file link"
 		}
 	}, {
-		'tree-item': 'folder',
-		'tree-item-label': 'Folder 2',
-		'tree-item-id': 'folder2',
-		'tree-item-attributes': {
-			'class': 'added-async-link another-class',
-			'title': 'this is a file link'
+		"tree-item": "folder",
+		"tree-item-label": "Folder 2",
+		"tree-item-id": "folder2",
+		"tree-item-attributes": {
+			"class": "added-async-link another-class",
+			"title": "this is a file link"
 		},
-		'tree-item-folder-contents': [{
-			'tree-item': 'file',
-			'tree-item-label': 'File Main 3',
-			'tree-item-id': 'file3',
-			'tree-item-link': '#mainlink',
-			'tree-item-attributes': {
-				'class': 'added-async-link another-class',
-				'title': 'this is a file link'
+		"tree-item-folder-contents": [{
+			"tree-item": "file",
+			"tree-item-label": "File Main 3",
+			"tree-item-id": "file3",
+			"tree-item-link": "#mainlink",
+			"tree-item-attributes": {
+				"class": "added-async-link another-class",
+				"title": "this is a file link"
 			}
 		}, {
-			'tree-item': 'file',
-			'tree-item-label': 'File Main 4',
-			'tree-item-id': 'file4',
-			'tree-item-link': '#mainlink',
-			'tree-item-attributes': {
-				'class': 'added-async-link another-class',
-				'title': 'this is a file link'
+			"tree-item": "file",
+			"tree-item-label": "File Main 4",
+			"tree-item-id": "file4",
+			"tree-item-link": "#mainlink",
+			"tree-item-attributes": {
+				"class": "added-async-link another-class",
+				"title": "this is a file link"
 			}
 		}]
 	}]

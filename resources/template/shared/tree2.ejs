@@ -1,0 +1,174 @@
+<% var sampletree= {
+  "tree":[
+    {
+      "tree-item":"file",
+      "tree-item-label":"File Main 31",
+      "tree-item-id":"file31",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    },
+    {
+      "tree-item":"folder",
+      "tree-item-label":"Folder 32",
+      "tree-item-id":"folder32",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      },
+      "tree-item-folder-contents":[{
+          "tree-item":"file",
+          "tree-item-label":"File Main 33",
+          "tree-item-id":"file33",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 34",
+          "tree-item-id":"file34",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 35",
+          "tree-item-id":"file35",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"folder",
+          "tree-item-label":"Folder 36",
+          "tree-item-id":"folder36",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          },
+          "tree-item-folder-contents":[
+              {
+                "tree-item":"file",
+                "tree-item-label":"File Main 37",
+                "tree-item-id":"file37",
+                "tree-item-link":"#mainlink",
+                "tree-item-attributes":{
+                  "class":"added-async-link another-class",
+                  "title":"this is a file link"
+                }
+              },
+              {
+                "tree-item":"file",
+                "tree-item-label":"File Main 38",
+                "tree-item-id":"file38",
+                "tree-item-link":"#mainlink",
+                "tree-item-attributes":{
+                  "class":"added-async-link another-class",
+                  "title":"this is a file link"
+                }
+              }
+            ]
+        }
+      ]
+    },{
+      "tree-item":"file",
+      "tree-item-label":"File Main 9",
+      "tree-item-id":"file39",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    }, {
+      "tree-item":"file",
+      "tree-item-label":"File Main 40",
+      "tree-item-id":"file40",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    },
+    {
+      "tree-item":"folder",
+      "tree-item-label":"Folder 41",
+      "tree-item-id":"folder41",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      },
+      "tree-item-folder-contents":[{
+          "tree-item":"file",
+          "tree-item-label":"File Main 42",
+          "tree-item-id":"file42",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 43",
+          "tree-item-id":"file43",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 44",
+          "tree-item-id":"file44",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        }]
+      }
+  ]
+ } %>
+
+<% getTreeFolder = function(treeitem){
+  var returnHTML ='<li>';
+  returnHTML +='<label for="'+treeitem['tree-item-id']+'">'+treeitem['tree-item-label']+'</label>';
+  returnHTML +='<input type="checkbox" id="'+treeitem['tree-item-id']+'" />';
+  returnHTML +='<ol>';
+  treeitem['tree-item-folder-contents'].forEach(function(nestedTreeItem){
+    if(nestedTreeItem['tree-item']==='file'){
+      returnHTML += getTreeFile(nestedTreeItem);
+    }
+    if(nestedTreeItem['tree-item']==='folder'){
+      returnHTML += getTreeFolder(nestedTreeItem);
+    }
+  });
+  returnHTML +='</ol>';
+  returnHTML +='</li>';
+  return returnHTML;
+}%>
+
+<% getTreeFile = function(treeitem){
+  return '<li id="'+treeitem['tree-item-id']+'"  class="ts-file '+treeitem['tree-item-attributes']['class']+'"><a href="'+treeitem['tree-item-link']+'">'+treeitem['tree-item-label']+'</a></li>';
+}%>
+
+<% getTreeItem = function(treeitem){
+  if(treeitem['tree-item']==='file'){
+    return getTreeFile(treeitem);
+  }
+  if(treeitem['tree-item']==='folder'){
+    return getTreeFolder(treeitem);
+  }
+}%>
+
+<ol class="ts-tree ts-tree-no-icon">
+<% sampletree.tree.forEach(function(treeitem){%>
+  <%- getTreeItem(treeitem) %>
+<%  }) %>
+</ol>
