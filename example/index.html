@@ -1,0 +1,529 @@
+<html class="ts">
+
+<head>
+  <title>Stylie Treeviews</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/example.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylie.treeview.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nifty Treeview Effects with CSS Transitions and Animations" />
+  <meta name="keywords" content="modal, window, overlay, modern, box, css transition, css animation, effect, 3d, perspective" />
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <script src='js/example.min.js'></script>
+</head>
+
+<body class="ts--container ts-no-x-overflow">
+  <main class="ts-container ">
+    <article class="ts-text-container">
+      <section class="ts-no-x-overflow">
+        <h1>CommonJS/Browserified Nifty Treeview Effects
+        </h1>
+        <h3>
+          <small>Some inspiration for different treeview appearances</small>
+        </h3>
+        <div class="ts-row">
+          <div class="ts-col-span6 ts-screenxs-col-span12">
+            <p>There are many possibilities for modal overlays to appear. Here are some modern ways of showing them using CSS transitions and animations.</p>
+            <p>Ported from CoDrops: <a href="http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/">Nifty Treeview Effects</a>
+            </p>
+            <p>
+              <strong> Full API <a href="http://typesettin.github.io/stylie.treeview/api/html">documentation</a>
+              </strong>
+            </p>
+          </div>
+          <div class="ts-col-span6 ts-screenxs-col-span12">
+
+            <div id="td-modal-buttons" class="ts-container-margin-lg">
+              <button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-1">Fade in &amp; Scale</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-2">Slide in (right)</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-3">Slide in (bottom)</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-4">Newspaper</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-no-effect">No effect selected</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-5">Fall</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-6">Side Fall</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-7">Sticky Up</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-8">3D Flip (horizontal)</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-9">3D Flip (vertical)</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-10">3D Sign</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-11">Super Scaled</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-12">Just Me</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-13">3D Slit</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-14">3D Rotate Bottom</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-15">3D Rotate In Left</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md" data-modal="modal-16">Blur</button>
+<!-- special modal that will add a perspective class to the html element -->
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md " data-modal="modal-17">Let me in</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md " data-modal="modal-18">Make way!</button>
+<button class="md-trigger ts-border-primary-text-color ts-border-solid-micro ts-bg-primary-text-color ts-text-text-primary-color ts-margin-md " data-modal="modal-19">Slip from top</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </article>
+  </main>
+  <div class="ts-screenxx-hidden">
+    <!-- All modals added here for the demo. You would of course just have one, dynamically created -->
+<div class="ts-modal ts-modal-effect-1" data-name="modal-1" id="modal-1">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-2" data-name="modal-2" id="modal-2">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-3" data-name="modal-3" id="modal-3">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-4" data-name="modal-4" id="modal-4">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-5" data-name="modal-5" id="modal-5">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-no-effect" data-name="modal-no-effect" id="modal-no-effect">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-6" data-name="modal-6" id="modal-6">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-7" data-name="modal-7" id="modal-7">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-8" data-name="modal-8" id="modal-8">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-9" data-name="modal-9" id="modal-9">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-10" data-name="modal-10" id="modal-10">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-11" data-name="modal-11" id="modal-11">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-12" data-name="modal-12" id="modal-12">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-13" data-name="modal-13" id="modal-13">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-14" data-name="modal-14" id="modal-14">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-15" data-name="modal-15" id="modal-15">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-16" data-name="modal-16" id="modal-16">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-17" data-name="modal-17" id="modal-17">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-18 " data-name="modal-18" id="modal-18">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-19 " data-name="modal-19" id="modal-19">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+<div class="ts-modal ts-modal-effect-20 " data-name="modal-20" id="modal-20">
+  <section class="">
+  <div class="ts-modal-content ts-bg-text-primary-color  ts-no-heading-margin ts-padding-lg ts-shadow">
+    <h3>Modal Dialog</h3>
+    <div>
+      <p>This is a treeview. You can do the following things with it:</p>
+      <ul>
+        <li>
+          <strong>Read:</strong> treeviews will probably tell you something important so don't forget to read what they say.</li>
+        <li>
+          <strong>Look:</strong> a treeview enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+        <li>
+          <strong>Close:</strong> click on the button below to close the modal.</li>
+      </ul>
+    </div>
+    <div class="ts-text-center">
+      <button class="ts-modal-close ts-bg-accent-color ts-text-text-primary-color ts-padding-md ts-modal-border-radius ts-modal-no-border">Close me!</button>
+    </div>
+  </div>
+</section>
+</div>
+      <div class="ts-modal-overlay ts-bg-accent-color"></div>
+  </div>
+  <!-- the overlay element -->
+  <script>
+  (function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-52892914-6', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+
+</html>
