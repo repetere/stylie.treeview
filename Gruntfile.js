@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 			]
 		},
 		jsbeautifier: {
-			files: ['<%= jshint.all %>', '!resources/template/component_modals.ejs'],
+			files: ['<%= jshint.all %>', '!resources/template/shared/tree.ejs', '!resources/template/shared/tree2.ejs'],
 			options: {
 				config: '.jsbeautify'
 			}

@@ -42,65 +42,121 @@
 
     <section>
         <article><h1>stylie.treeview</h1>
-<p>100% width tabbed content with some example media queries for smaller screens.
- Inspired by <a href="http://tympanus.net/codrops/2014/03/21/responsive-full-width-tabs/">Responsive full width tabs</a></p>
-<p> <a href="https://github.com/typesettin/stylie.treeview/blob/master/doc/api.md">API Documenation</a></p>
-<h2>Example</h2>
-<p>Check out <code>example/index.html</code>, the example javascript for the example page is <code>resources/js/example_src.js</code></p>
-<h2>Installation</h2>
-<pre><code>$ npm install stylie.treeview</code></pre>
-<p>The tab component is a browserify javascript module.</p>
-<h2>Usage</h2>
-<p><em>JavaScript</em></p>
-<pre><code class="lang-javascript">var ComponentTabs = require('periodicjs.stylie.treeview'),
-    myTabs;
-//initialize nav component after the dom has loaded
-window.addEventListener('load',function(){
-    var tabelement = document.getElementById('tabs');
-    myTabs = new ComponentTabs(tabelement);
-    //expose your nav component to the window global namespace
-    window.myNav = myNav;
-});</code></pre>
-<p><em>HTML</em></p>
-<pre><code class="lang-html">&lt;html&gt;
-    &lt;head&gt;
-      &lt;title&gt;Your Page&lt;/title&gt;
-      &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;[path/to]/stylie.treeview.css&quot;&gt;
-      &lt;script src='[path/to/browserify/bundle].js'&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-         &lt;div id=&quot;tabs&quot; class=&quot;tabs&quot;&gt;
-      &lt;nav&gt;
-        &lt;ul&gt;
-          &lt;li&gt;
-            tab1
-          &lt;/li&gt;
-          &lt;li&gt;
-            tab2
-          &lt;/li&gt;
-          &lt;li&gt;
-            tab3
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/nav&gt;
-      &lt;div class=&quot;content&quot;&gt;
-        &lt;section id=&quot;section-1&quot;&gt;
-          any html
-        &lt;/section&gt;
-        &lt;section id=&quot;section-2&quot;&gt;
-          can go in here
-        &lt;/section&gt;
-        &lt;section id=&quot;section-3&quot;&gt;
-          this is fully responsive
-        &lt;/section&gt;
-      &lt;/div&gt;
-      &lt;!-- /content --&gt;
-    &lt;/div&gt;
-    &lt;!-- /tabs --&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<h2>API</h2>
-<pre><code class="lang-javascript">myNav.showTab(1); //show tab at index '1'</code></pre>
+<p>Pure CSS collapsible tree menu, ported from: <a href="http://www.thecssninja.com/css/css-tree-menu">http://www.thecssninja.com/css/css-tree-menu</a></p>
+<pre><code class="lang-html">    &lt;ol&gt;
+        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;document.pdf&quot;&gt;File 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;
+            &lt;label for=&quot;subfolder1&quot;&gt;Subfolder 1&lt;/label&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;subfolder1&quot; /&gt;
+            &lt;ol&gt;
+                &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;&quot;&gt;File 2&lt;/a&gt;&lt;/li&gt;
+                &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;&quot;&gt;File 2&lt;/a&gt;&lt;/li&gt;
+                &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;&quot;&gt;File 2&lt;/a&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;</code></pre>
+<pre><code class="lang-css">li input {
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    height: 1em;
+    width: 1em;
+    top: 0;
+}
+li label {
+    background: url(folder-horizontal.png) 15px 1px no-repeat;
+    cursor: pointer;
+    display: block;
+    padding-left: 37px;
+}
+li input + ol {
+    background: url(toggle-small-expand.png) 40px 0 no-repeat;
+    margin: -0.938em 0 0 -44px; /* 15px */
+    display: block;
+    height: 1em;
+}
+li input + ol &gt; li {
+    display: none;
+    margin-left: -14px !important;
+    padding-left: 1px;
+}
+li label {
+    background: url(folder.png) 15px 1px no-repeat;
+}
+li.file a {
+    background: url(document.png) 0 -1px no-repeat;
+    color: #fff;
+    padding-left: 21px;
+    text-decoration: none;
+    display: block;
+}
+li {
+    position: relative;
+    margin-left: -15px;
+    list-style: none;
+}
+li.file {
+    margin-left: -1px !important;
+}
+li.file a[href $= '.pdf']     { background-position: -16px -1px; }
+li.file a[href $= '.html']    { background-position: -32px -1px; }
+li.file a[href $= '.css']     { background-position: -48px -1px; }
+li.file a[href $= '.js']      { background-position: -64px -1px; }</code></pre>
+<h2>Generate with javascript</h2>
+<pre><code class="lang-json">var sampletree = {
+    'tree': [{
+        'tree-item': 'file',
+        'tree-item-label': 'File Main 1',
+        'tree-item-id': 'file1',
+        'tree-item-link': '#mainlink',
+        'tree-item-attributes': {
+            'class': 'added-async-link another-class',
+            'title': 'this is a file link'
+        }
+    }, {
+        'tree-item': 'folder',
+        'tree-item-label': 'Folder 2',
+        'tree-item-id': 'folder2',
+        'tree-item-attributes': {
+            'class': 'added-async-link another-class',
+            'title': 'this is a file link'
+        },
+        'tree-item-folder-contents': [{
+            'tree-item': 'file',
+            'tree-item-label': 'File Main 3',
+            'tree-item-id': 'file3',
+            'tree-item-link': '#mainlink',
+            'tree-item-attributes': {
+                'class': 'added-async-link another-class',
+                'title': 'this is a file link'
+            }
+        }, {
+            'tree-item': 'file',
+            'tree-item-label': 'File Main 4',
+            'tree-item-id': 'file4',
+            'tree-item-link': '#mainlink',
+            'tree-item-attributes': {
+                'class': 'added-async-link another-class',
+                'title': 'this is a file link'
+            }
+        }]
+    }]
+};</code></pre>
+<pre><code class="lang-html">&lt;div id=&quot;tree-example-1&quot; class=&quot;ts-col-span6 &quot;&gt;
+&lt;/div&gt;</code></pre>
+<pre><code class="lang-javascript">var StylieTreeview = require('stylie.treeview'),
+    tree1 = sampletree,
+    StylieTreeview1;
+
+window.addEventListener('load', function () {
+    StylieTreeview1 = new StylieTreeview({
+        tree: tree1
+    });
+    document.querySelector('#tree-example-1').innerHTML = StylieTreeview1.getTreeHTML();
+}, false);</code></pre>
 <h2>Development</h2>
 <p><em>Make sure you have grunt installed</em></p>
 <pre><code>$ npm install -g grunt-cli</code></pre>
@@ -108,13 +164,7 @@ window.addEventListener('load',function(){
 <pre><code>$ grunt watch</code></pre>
 <p>For generating documentation</p>
 <pre><code>$ grunt doc
-$ jsdoc2md lib/**/*.js index.js install.js uninstall.js &gt; doc/api.md</code></pre>
-<h2>Notes</h2>
-<ul>
-<li>The Tab Module uses Node's event Emitter for event handling.</li>
-<li>The Template Generator uses EJS, but you can generate your own mark up</li>
-<li>The less file is located in <code>resources/stylesheets</code></li>
-</ul></article>
+$ jsdoc2md lib/**/*.js index.js &gt; doc/api.md</code></pre></article>
     </section>
 
 
@@ -125,13 +175,13 @@ $ jsdoc2md lib/**/*.js index.js install.js uninstall.js &gt; doc/api.md</code></
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="ComponentModals.html">ComponentModals</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="StylieTreeviews.html">StylieTreeviews</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Feb 08 2015 15:19:44 GMT-0800 (PST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon May 04 2015 18:23:06 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

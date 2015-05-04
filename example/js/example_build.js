@@ -20,254 +20,108 @@ module.exports = require('./lib/stylie.treeview');
 'use strict';
 
 var extend = require('util-extend'),
-	classie = require('classie'),
 	events = require('events'),
-	htmlEl,
 	util = require('util');
 
 /**
- * A module that represents a StylieModals object, a componentTab is a page composition tool.
+ * A module that represents a StylieTreeviews object, a componentTab is a page composition tool.
  * @{@link https://github.com/typesettin/stylie.treeview}
  * @author Yaw Joseph Etse
  * @copyright Copyright (c) 2015 Typesettin. All rights reserved.
  * @license MIT
- * @constructor StylieModals
+ * @constructor StylieTreeviews
  * @requires module:util-extent
  * @requires module:util
  * @requires module:events
  * @param {object} el element of tab container
  * @param {object} options configuration options
  */
-var StylieModals = function (options) {
+var StylieTreeviews = function (options) {
 	events.EventEmitter.call(this);
+	var defaultOptions = {
+		tree: {}
+	};
 
-	// this.el = el;
-	this.options = extend(this.options, options);
-	// console.log(this.options);
-	this._init();
-	this.show = this._show;
-	this.hide = this._hide;
+	this.options = extend(defaultOptions, options);
+	// this.getTreeHTML = this.getTreeHTML;
 };
 
-var closeModalOnKeydown = function (e) {
-	if (this.options.close_modal_on_escape_key === true && e.keyCode === 27) {
-		this.hide(this.options.current_modal);
-		document.querySelector('html').removeEventListener('keydown', closeModalOnKeydown, false);
-	}
-};
+util.inherits(StylieTreeviews, events.EventEmitter);
 
-var closeOverlayOnClick = function () {
-	this.hide(this.options.current_modal);
-};
-
-var closeModalClickHandler = function (e) {
-	if (classie.has(e.target, this.options.modal_close_class)) {
-		this.hide(this.options.current_modal);
-	}
-};
-
-util.inherits(StylieModals, events.EventEmitter);
-
-/** module default configuration */
-StylieModals.prototype.options = {
-	start: 0,
-	modal_overlay_selector: '.ts-modal-overlay',
-	modal_elements: '.ts-modal',
-	modal_body_container_class: 'ts-modal-container',
-	modal_close_class: 'ts-modal-close',
-	modal_default_class: 'ts-modal-effect-1',
-	modals: {},
-	overlay: null,
-	close_modal_on_overlay_click: true,
-	close_modal_on_escape_key: true,
-	current_modal: ''
-};
-/**
- * initializes modals and shows current tab.
- * @emits modalsInitialized
- */
-StylieModals.prototype._init = function () {
-	var body = document.querySelector('body');
-	htmlEl = document.querySelector('html');
-
-	this.options.overlay = document.querySelector(this.options.modal_overlay_selector);
-	this.options.modalEls = document.querySelectorAll(this.options.modal_elements);
-
-	if (!classie.has(body, this.options.modal_body_container_class)) {
-		classie.add(body, this.options.modal_body_container_class);
-	}
-
-	for (var x in this.options.modalEls) {
-		if (typeof this.options.modalEls[x] === 'object') {
-			this.options.modals[this.options.modalEls[x].getAttribute('data-name')] = this.options.modalEls[x];
+StylieTreeviews.prototype.getTreeItemAttributes = function (treeItemAttributes) {
+	var returnHTML = '';
+	for (var key in treeItemAttributes) {
+		if (key !== 'class') {
+			returnHTML += ' ' + key + '="' + treeItemAttributes[key] + '" ';
 		}
 	}
-	this._initEvents();
-	this.emit('modalsInitialized');
+
+	return returnHTML;
 };
 
-/**
- * handle tab click events.
- */
-StylieModals.prototype._initEvents = function () {
-	if (this.options.close_modal_on_overlay_click === true) {
-		this.options.overlay.addEventListener('click', closeOverlayOnClick.bind(this), false);
+StylieTreeviews.prototype.getTreeFolder = function (treeitem) {
+	var returnHTML = '<li>';
+	returnHTML += '<label for="' + treeitem['tree-item-id'] + '"  ' + this.getTreeItemAttributes(treeitem['tree-item-attributes']) + ' >' + treeitem['tree-item-label'] + '</label>';
+	returnHTML += '<input type="checkbox" id="' + treeitem['tree-item-id'] + '" ' + this.getTreeItemAttributes(treeitem['tree-item-input-attributes']) + ' />';
+	returnHTML += '<ol>';
+	treeitem['tree-item-folder-contents'].forEach(function (nestedTreeItem) {
+		if (nestedTreeItem['tree-item'] === 'file') {
+			returnHTML += this.getTreeFile(nestedTreeItem);
+		}
+		if (nestedTreeItem['tree-item'] === 'folder') {
+			returnHTML += this.getTreeFolder(nestedTreeItem);
+		}
+	}.bind(this));
+	returnHTML += '</ol>';
+	returnHTML += '</li>';
+	return returnHTML;
+};
+
+StylieTreeviews.prototype.getTreeFile = function (treeitem) {
+	var returnHTML = '<li class="ts-file ">';
+	returnHTML += '<a class="' + treeitem['tree-item-attributes']['class'] + '" ';
+	returnHTML += 'id="' + treeitem['tree-item-id'] + '"  ';
+	returnHTML += this.getTreeItemAttributes(treeitem['tree-item-attributes']);
+	returnHTML += ' href="' + treeitem['tree-item-link'] + '">';
+	returnHTML += treeitem['tree-item-label'];
+	returnHTML += '</a>';
+	returnHTML += '</li>';
+
+	return returnHTML;
+};
+
+StylieTreeviews.prototype.getTreeItem = function (treeitem) {
+	if (treeitem['tree-item'] === 'file') {
+		return this.getTreeFile(treeitem);
 	}
-	this.emit('modalsEventsInitialized');
-};
-
-/**
- * Hides a modal component.
- * @param {string} modal name
- * @emits showModal
- */
-StylieModals.prototype._hide = function (modal_name) {
-	var modal = this.options.modals[modal_name];
-	classie.remove(modal, 'ts-modal-show');
-	// this.options.current_modal = '';
-
-	modal.removeEventListener('click', closeModalClickHandler, false);
-
-	if (this.options.close_modal_on_escape_key === true) {
-		htmlEl.removeEventListener('keydown', closeModalOnKeydown.bind(this), false);
+	if (treeitem['tree-item'] === 'folder') {
+		return this.getTreeFolder(treeitem);
 	}
-
-
-	this.emit('hideModal', {
-		modal: modal,
-		modal_name: modal_name
-	});
 };
+
 
 /**
  * Shows a modal component.
  * @param {string} modal name
  * @emits showModal
  */
-StylieModals.prototype._show = function (modal_name) {
-	var modal = this.options.modals[modal_name],
-		hasModalEffect = false;
+StylieTreeviews.prototype.getTreeHTML = function () {
+	var treeobject = this.options.tree,
+		addedMainTreeId = treeobject['tree-item-id'] || '',
+		addedMainTreeAttributes = treeobject['tree-item-attributes'],
+		addedMainTreeClass = (addedMainTreeAttributes) ? addedMainTreeAttributes['class'] : '',
+		returnHTML = '<ol class="ts-tree ' + addedMainTreeClass + '" id="' + addedMainTreeId + '" ' + this.getTreeItemAttributes(addedMainTreeAttributes) + ' >';
+	treeobject.tree.forEach(function (treeitem) {
+		returnHTML += this.getTreeItem(treeitem);
+	}.bind(this));
+	returnHTML += '</ol>';
 
-	for (var y = 0; y < modal.classList.length; y++) {
-		if (modal.classList[y].search('ts-modal-effect-') >= 0) {
-			hasModalEffect = true;
-		}
-	}
-
-	if (hasModalEffect === false) {
-		classie.add(modal, this.options.modal_default_class);
-	}
-
-	classie.add(modal, 'ts-modal-show');
-	this.options.current_modal = modal_name;
-
-	modal.addEventListener('click', closeModalClickHandler.bind(this), false);
-
-	if (this.options.close_modal_on_escape_key === true) {
-		htmlEl.addEventListener('keydown', closeModalOnKeydown.bind(this), false);
-	}
-
-	this.emit('showModal', {
-		modal: modal,
-		modal_name: modal_name
-	});
+	return returnHTML;
 };
-module.exports = StylieModals;
 
-},{"classie":3,"events":5,"util":9,"util-extend":10}],3:[function(require,module,exports){
-/*
- * classie
- * http://github.amexpub.com/modules/classie
- *
- * Copyright (c) 2013 AmexPub. All rights reserved.
- */
+module.exports = StylieTreeviews;
 
-module.exports = require('./lib/classie');
-
-},{"./lib/classie":4}],4:[function(require,module,exports){
-/*!
- * classie - class helper functions
- * from bonzo https://github.com/ded/bonzo
- * 
- * classie.has( elem, 'my-class' ) -> true/false
- * classie.add( elem, 'my-new-class' )
- * classie.remove( elem, 'my-unwanted-class' )
- * classie.toggle( elem, 'my-class' )
- */
-
-/*jshint browser: true, strict: true, undef: true */
-/*global define: false */
-'use strict';
-
-  // class helper functions from bonzo https://github.com/ded/bonzo
-
-  function classReg( className ) {
-    return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-  }
-
-  // classList support for class management
-  // altho to be fair, the api sucks because it won't accept multiple classes at once
-  var hasClass, addClass, removeClass;
-
-  if (typeof document === "object" && 'classList' in document.documentElement ) {
-    hasClass = function( elem, c ) {
-      return elem.classList.contains( c );
-    };
-    addClass = function( elem, c ) {
-      elem.classList.add( c );
-    };
-    removeClass = function( elem, c ) {
-      elem.classList.remove( c );
-    };
-  }
-  else {
-    hasClass = function( elem, c ) {
-      return classReg( c ).test( elem.className );
-    };
-    addClass = function( elem, c ) {
-      if ( !hasClass( elem, c ) ) {
-        elem.className = elem.className + ' ' + c;
-      }
-    };
-    removeClass = function( elem, c ) {
-      elem.className = elem.className.replace( classReg( c ), ' ' );
-    };
-  }
-
-  function toggleClass( elem, c ) {
-    var fn = hasClass( elem, c ) ? removeClass : addClass;
-    fn( elem, c );
-  }
-
-  var classie = {
-    // full names
-    hasClass: hasClass,
-    addClass: addClass,
-    removeClass: removeClass,
-    toggleClass: toggleClass,
-    // short names
-    has: hasClass,
-    add: addClass,
-    remove: removeClass,
-    toggle: toggleClass
-  };
-
-  // transport
-
-  if ( typeof module === "object" && module && typeof module.exports === "object" ) {
-    // commonjs / browserify
-    module.exports = classie;
-  } else {
-    // AMD
-    define(classie);
-  }
-
-  // If there is a window object, that at least has a document property,
-  // define classie
-  if ( typeof window === "object" && typeof window.document === "object" ) {
-    window.classie = classie;
-  }
-},{}],5:[function(require,module,exports){
+},{"events":3,"util":7,"util-extend":8}],3:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -570,7 +424,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],6:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -595,7 +449,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],7:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -687,14 +541,14 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],8:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],9:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1284,7 +1138,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":8,"_process":7,"inherits":6}],10:[function(require,module,exports){
+},{"./support/isBuffer":6,"_process":5,"inherits":4}],8:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1319,26 +1173,292 @@ function extend(origin, add) {
   return origin;
 }
 
-},{}],11:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
-var StylieModal = require('../../index'),
-	classie = require('classie'),
-	StylieModal1,
-	modalButtonContainer;
-
-var openModalButtonHandler = function (e) {
-	if (classie.has(e.target, 'md-trigger')) {
-		StylieModal1.show(e.target.getAttribute('data-modal'));
-	}
-};
+var StylieTreeview = require('../../index'),
+	tree1 = require('./tree_data_1'),
+	tree2 = require('./tree_data_2'),
+	StylieTreeview1,
+	StylieTreeview2;
 
 window.addEventListener('load', function () {
-	modalButtonContainer = document.querySelector('#td-modal-buttons');
-	StylieModal1 = new StylieModal({});
-	modalButtonContainer.addEventListener('click', openModalButtonHandler, false);
-
-	window.StylieModal1 = StylieModal1;
+	StylieTreeview1 = new StylieTreeview({
+		tree: tree1
+	});
+	StylieTreeview2 = new StylieTreeview({
+		tree: tree2
+	});
+	document.querySelector('#tree-example-1').innerHTML = StylieTreeview1.getTreeHTML();
+	document.querySelector('#tree-example-2').innerHTML = StylieTreeview2.getTreeHTML();
+	window.StylieTreeview1 = StylieTreeview1;
+	window.StylieTreeview2 = StylieTreeview2;
 }, false);
 
-},{"../../index":1,"classie":3}]},{},[11]);
+},{"../../index":1,"./tree_data_1":10,"./tree_data_2":11}],10:[function(require,module,exports){
+'use strict';
+var sampletree = {
+	'tree': [{
+		'tree-item': 'file',
+		'tree-item-label': 'File Main 1',
+		'tree-item-id': 'file1',
+		'tree-item-link': '#mainlink',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		}
+	}, {
+		'tree-item': 'folder',
+		'tree-item-label': 'Folder 2',
+		'tree-item-id': 'folder2',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		},
+		'tree-item-folder-contents': [{
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 3',
+			'tree-item-id': 'file3',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 4',
+			'tree-item-id': 'file4',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 5',
+			'tree-item-id': 'file5',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'folder',
+			'tree-item-label': 'Folder 6',
+			'tree-item-id': 'folder6',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			},
+			'tree-item-folder-contents': [{
+				'tree-item': 'file',
+				'tree-item-label': 'File Main 7',
+				'tree-item-id': 'file7',
+				'tree-item-link': '#mainlink',
+				'tree-item-attributes': {
+					'class': 'added-async-link another-class',
+					'title': 'this is a file link'
+				}
+			}, {
+				'tree-item': 'file',
+				'tree-item-label': 'File Main 8',
+				'tree-item-id': 'file8',
+				'tree-item-link': '#mainlink',
+				'tree-item-attributes': {
+					'class': 'added-async-link another-class',
+					'title': 'this is a file link'
+				}
+			}]
+		}]
+	}, {
+		'tree-item': 'file',
+		'tree-item-label': 'File Main 9',
+		'tree-item-id': 'file9',
+		'tree-item-link': '#mainlink',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		}
+	}, {
+		'tree-item': 'folder',
+		'tree-item-label': 'Folder 11',
+		'tree-item-id': 'folder11',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		},
+		'tree-item-folder-contents': [{
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 12',
+			'tree-item-id': 'file12',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 13',
+			'tree-item-id': 'file13',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 14',
+			'tree-item-id': 'file14',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}]
+	}]
+};
+
+module.exports = sampletree;
+
+},{}],11:[function(require,module,exports){
+'use strict';
+var sampletree = {
+	'tree-item-attributes': {
+		'class': 'ts-tree-no-icon',
+		'title': 'this tree has no icons'
+	},
+	'tree': [{
+		'tree-item': 'file',
+		'tree-item-label': 'File Main 31',
+		'tree-item-id': 'file31',
+		'tree-item-link': '#mainlink',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		}
+	}, {
+		'tree-item': 'folder',
+		'tree-item-label': 'Folder 32',
+		'tree-item-id': 'folder32',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		},
+		'tree-item-input-attributes': {
+			'checked': 'checked'
+		},
+		'tree-item-folder-contents': [{
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 33',
+			'tree-item-id': 'file33',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 34',
+			'tree-item-id': 'file34',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 35',
+			'tree-item-id': 'file35',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'folder',
+			'tree-item-label': 'Folder 36',
+			'tree-item-id': 'folder36',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			},
+			'tree-item-folder-contents': [{
+				'tree-item': 'file',
+				'tree-item-label': 'File Main 37',
+				'tree-item-id': 'file37',
+				'tree-item-link': '#mainlink',
+				'tree-item-attributes': {
+					'class': 'added-async-link another-class',
+					'title': 'this is a file link'
+				}
+			}, {
+				'tree-item': 'file',
+				'tree-item-label': 'File Main 38',
+				'tree-item-id': 'file38',
+				'tree-item-link': '#mainlink',
+				'tree-item-attributes': {
+					'class': 'added-async-link another-class',
+					'title': 'this is a file link'
+				}
+			}]
+		}]
+	}, {
+		'tree-item': 'file',
+		'tree-item-label': 'File Main 9',
+		'tree-item-id': 'file39',
+		'tree-item-link': '#mainlink',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		}
+	}, {
+		'tree-item': 'file',
+		'tree-item-label': 'File Main 40',
+		'tree-item-id': 'file40',
+		'tree-item-link': '#mainlink',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		}
+	}, {
+		'tree-item': 'folder',
+		'tree-item-label': 'Folder 41',
+		'tree-item-id': 'folder41',
+		'tree-item-attributes': {
+			'class': 'added-async-link another-class',
+			'title': 'this is a file link'
+		},
+		'tree-item-folder-contents': [{
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 42',
+			'tree-item-id': 'file42',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 43',
+			'tree-item-id': 'file43',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}, {
+			'tree-item': 'file',
+			'tree-item-label': 'File Main 44',
+			'tree-item-id': 'file44',
+			'tree-item-link': '#mainlink',
+			'tree-item-attributes': {
+				'class': 'added-async-link another-class',
+				'title': 'this is a file link'
+			}
+		}]
+	}]
+};
+
+module.exports = sampletree;
+
+},{}]},{},[9]);

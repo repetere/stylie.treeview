@@ -1,117 +1,194 @@
-<ol class="tree">
-  <li class="file"><a href="">Subfile 4</a></li>
-  <li>
-    <label for="folder1">Folder 1</label>
-    <input type="checkbox" checked disabled id="folder1" />
-    <ol>
-      <li class="file"><a href="document.html.pdf">File 1</a></li>
-      <li>
-        <label for="subfolder1">Subfolder 1</label>
-        <input type="checkbox" id="subfolder1" />
-        <ol>
-          <li class="file"><a href="">Filey 1</a></li>
-          <li>
-            <label for="subsubfolder1">Subfolder 1</label>
-            <input type="checkbox" id="subsubfolder1" />
-            <ol>
-              <li class="file"><a href="">File 1</a></li>
-              <li>
-                <label for="subsubfolder2">Subfolder 1</label>
-                <input type="checkbox" id="subsubfolder2" />
-                <ol>
-                  <li class="file"><a href="">Subfile 1</a></li>
-                  <li class="file"><a href="">Subfile 2</a></li>
-                  <li class="file"><a href="">Subfile 3</a></li>
-                  <li class="file"><a href="">Subfile 4</a></li>
-                  <li class="file"><a href="">Subfile 5</a></li>
-                  <li class="file"><a href="">Subfile 6</a></li>
-                </ol>
-              </li>
-            </ol>
-          </li>
-          <li class="file"><a href="">File 3</a></li>
-          <li class="file"><a href="">File 4</a></li>
-          <li class="file"><a href="">File 5</a></li>
-          <li class="file"><a href="">File 6</a></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <label for="folder2">Folder 2</label>
-    <input type="checkbox" id="folder2" />
-    <ol>
-      <li class="file"><a href="">File 1</a></li>
-      <li>
-        <label for="subfolder2">Subfolder 1</label>
-        <input type="checkbox" id="subfolder2" />
-        <ol>
-          <li class="file"><a href="">Subfile 1</a></li>
-          <li class="file"><a href="">Subfile 2</a></li>
-          <li class="file"><a href="">Subfile 3</a></li>
-          <li class="file"><a href="">Subfile 4</a></li>
-          <li class="file"><a href="">Subfile 5</a></li>
-          <li class="file"><a href="">Subfile 6</a></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <label for="folder3">Folder 3</label>
-    <input type="checkbox" id="folder3" />
-    <ol>
-      <li class="file"><a href="">File 1</a></li>
-      <li>
-        <label for="subfolder3">Subfolder 1</label>
-        <input type="checkbox" id="subfolder3" />
-        <ol>
-          <li class="file"><a href="">Subfile 1</a></li>
-          <li class="file"><a href="">Subfile 2</a></li>
-          <li class="file"><a href="">Subfile 3</a></li>
-          <li class="file"><a href="">Subfile 4</a></li>
-          <li class="file"><a href="">Subfile 5</a></li>
-          <li class="file"><a href="">Subfile 6</a></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li class="file"><a href="">Subfile 4</a></li>
-  <li>
-    <label for="folder4">Folder 4</label>
-    <input type="checkbox" id="folder4" />
-    <ol>
-      <li class="file"><a href="">File 1</a></li>
-      <li>
-        <label for="subfolder4">Subfolder 1</label>
-        <input type="checkbox" id="subfolder4" />
-        <ol>
-          <li class="file"><a href="">Subfile 1</a></li>
-          <li class="file"><a href="">Subfile 2</a></li>
-          <li class="file"><a href="">Subfile 3</a></li>
-          <li class="file"><a href="">Subfile 4</a></li>
-          <li class="file"><a href="">Subfile 5</a></li>
-          <li class="file"><a href="">Subfile 6</a></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>
-    <label for="folder5">Folder 5</label>
-    <input type="checkbox" id="folder5" />
-    <ol>
-      <li class="file"><a href="">File 1</a></li>
-      <li>
-        <label for="subfolder5">Subfolder 1</label>
-        <input type="checkbox" id="subfolder5" />
-        <ol>
-          <li class="file"><a href="">Subfile 1</a></li>
-          <li class="file"><a href="">Subfile 2</a></li>
-          <li class="file"><a href="">Subfile 3</a></li>
-          <li class="file"><a href="">Subfile 4</a></li>
-          <li class="file"><a href="">Subfile 5</a></li>
-          <li class="file"><a href="">Subfile 6</a></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
+<% var sampletree= {
+  "tree":[
+    {
+      "tree-item":"file",
+      "tree-item-label":"File Main 1",
+      "tree-item-id":"file1",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    },
+    {
+      "tree-item":"folder",
+      "tree-item-label":"Folder 2",
+      "tree-item-id":"folder2",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      },
+      "tree-item-folder-contents":[{
+          "tree-item":"file",
+          "tree-item-label":"File Main 3",
+          "tree-item-id":"file3",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 4",
+          "tree-item-id":"file4",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 5",
+          "tree-item-id":"file5",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"folder",
+          "tree-item-label":"Folder 6",
+          "tree-item-id":"folder6",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          },
+          "tree-item-folder-contents":[
+              {
+                "tree-item":"file",
+                "tree-item-label":"File Main 7",
+                "tree-item-id":"file7",
+                "tree-item-link":"#mainlink",
+                "tree-item-attributes":{
+                  "class":"added-async-link another-class",
+                  "title":"this is a file link"
+                }
+              },
+              {
+                "tree-item":"file",
+                "tree-item-label":"File Main 8",
+                "tree-item-id":"file8",
+                "tree-item-link":"#mainlink",
+                "tree-item-attributes":{
+                  "class":"added-async-link another-class",
+                  "title":"this is a file link"
+                }
+              }
+            ]
+        }
+      ]
+    },{
+      "tree-item":"file",
+      "tree-item-label":"File Main 9",
+      "tree-item-id":"file9",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    }, {
+      "tree-item":"file",
+      "tree-item-label":"File Main 10",
+      "tree-item-id":"file10",
+      "tree-item-link":"#mainlink",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      }
+    },
+    {
+      "tree-item":"folder",
+      "tree-item-label":"Folder 11",
+      "tree-item-id":"folder11",
+      "tree-item-attributes":{
+        "class":"added-async-link another-class",
+        "title":"this is a file link"
+      },
+      "tree-item-folder-contents":[{
+          "tree-item":"file",
+          "tree-item-label":"File Main 12",
+          "tree-item-id":"file12",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 13",
+          "tree-item-id":"file13",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        },{
+          "tree-item":"file",
+          "tree-item-label":"File Main 14",
+          "tree-item-id":"file14",
+          "tree-item-link":"#mainlink",
+          "tree-item-attributes":{
+            "class":"added-async-link another-class",
+            "title":"this is a file link"
+          }
+        }]
+      }
+  ]
+ } %>
+
+<% getTreeItemAttributes = function(treeItemAttributes){
+  var returnHTML='';
+  for(key in treeItemAttributes){
+    if(key!=='class'){
+      returnHTML+= ' '+key+'="'+treeItemAttributes[key]+'" '
+    }
+  }
+
+  return returnHTML;
+}%>
+
+<% getTreeFolder = function(treeitem){
+  var returnHTML ='<li>';
+  returnHTML +='<label for="'+treeitem['tree-item-id']+'"  '+getTreeItemAttributes(treeitem['tree-item-attributes'])+' >'+treeitem['tree-item-label']+'</label>';
+  returnHTML +='<input type="checkbox" id="'+treeitem['tree-item-id']+'" />';
+  returnHTML +='<ol>';
+  treeitem['tree-item-folder-contents'].forEach(function(nestedTreeItem){
+    if(nestedTreeItem['tree-item']==='file'){
+      returnHTML += getTreeFile(nestedTreeItem);
+    }
+    if(nestedTreeItem['tree-item']==='folder'){
+      returnHTML += getTreeFolder(nestedTreeItem);
+    }
+  });
+  returnHTML +='</ol>';
+  returnHTML +='</li>';
+  return returnHTML;
+}%>
+
+<% getTreeFile = function(treeitem){
+  returnHTML ='<li class="ts-file ">';
+    returnHTML +='<a class="'+treeitem['tree-item-attributes']['class']+'" ';
+    returnHTML +='id="'+treeitem['tree-item-id']+'"  ';
+    returnHTML +=getTreeItemAttributes(treeitem['tree-item-attributes']);
+    returnHTML +=' href="'+treeitem['tree-item-link']+'">';
+      returnHTML +=treeitem['tree-item-label'];
+    returnHTML +='</a>';
+  returnHTML +='</li>';
+
+  return returnHTML;
+}%>
+
+<% getTreeItem = function(treeitem){
+  if(treeitem['tree-item']==='file'){
+    return getTreeFile(treeitem);
+  }
+  if(treeitem['tree-item']==='folder'){
+    return getTreeFolder(treeitem);
+  }
+}%>
+
+<ol class="ts-tree">
+<% sampletree.tree.forEach(function(treeitem){%>
+  <%- getTreeItem(treeitem) %>
+<%  }) %>
 </ol>

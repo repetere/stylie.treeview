@@ -1,89 +1,116 @@
+//page em size
+@sizexs:								.1em;
+@sizesm:								.25em;
+@sizemd:								.5em;
+@sizelg:								1em;
+@sizexl:								3em;
+@sizexx:								5em;
+
 .ts{
 	
-/* CSS Tree menu styles */
-ol.tree
-{
+	/* CSS Tree menu styles */
+	ol.ts-tree{
+		padding: 0 0 0 (@sizexl/2);
+		// width: 300px;
 
+		/* Just some base styles not needed for example to function */
+		*, html { font-family: Verdana, Arial, Helvetica, sans-serif; }
 
-	padding: 0 0 0 30px;
-	width: 300px;
-
-	/* Just some base styles not needed for example to function */
-*, html { font-family: Verdana, Arial, Helvetica, sans-serif; }
-
-	body, form, ul, li, p, h1, h2, h3, h4, h5
-	{
-		margin: 0;
-		padding: 0;
-	}
-	img { border: none; }
-	p
-	{
-		font-size: 1em;
-		margin: 0 0 1em 0;
-	}
-
-	html { font-size: 100%; /* IE hack */ }
-	body { font-size: 1em; /* Sets base font size to 16px */ }
-	table { font-size: 100%; /* IE hack */ }
-	input, select, textarea, th, td { font-size: 1em; }
-}
-	li 
-	{ 
-		position: relative; 
-		margin-left: -15px;
-		list-style: none;
-	}
-	li.file
-	{
-		margin-left: -1px !important;
-	}
-		li.file a
-		{
-			background: url(document.png) 0 0 no-repeat;
-			// color: #fff;
-			padding-left: 21px;
-			text-decoration: none;
-			display: block;
+		body, form, ul, li, p, h1, h2, h3, h4, h5{
+			margin: 0;
+			padding: 0;
 		}
-		li.file a[href *= '.pdf']	{ background: url(document.png) 0 0 no-repeat; }
-		li.file a[href *= '.html']	{ background: url(document.png) 0 0 no-repeat; }
-		li.file a[href $= '.css']	{ background: url(document.png) 0 0 no-repeat; }
-		li.file a[href $= '.js']		{ background: url(document.png) 0 0 no-repeat; }
-	li input
-	{
-		position: absolute;
-		left: 0;
-		margin-left: 0;
-		opacity: 0;
-		z-index: 2;
-		cursor: pointer;
-		height: 1em;
-		width: 1em;
-		top: 0;
-	}
-		li input + ol
-		{
-			background: url(toggle-small-expand.png) 40px 0 no-repeat;
-			margin: -0.938em 0 0 -44px; /* 15px */
-			height: 1em;
+		img { border: none; }
+		p{
+			font-size: @sizelg;
+			margin: 0 0 @sizelg 0;
 		}
-		li input + ol > li { display: none; margin-left: -14px !important; padding-left: 1px; }
-	li label
-	{
-		background: url(folder-horizontal.png) 15px 1px no-repeat;
-		cursor: pointer;
-		display: block;
-		padding-left: 37px;
-	}
 
-	li input:checked + ol
-	{
-		background: url(toggle-small.png) 40px 5px no-repeat;
-		margin: -1.25em 0 0 -44px; /* 20px */
-		padding: 1.563em 0 0 80px;
-		height: auto;
+		html { font-size: 100%; /* IE hack */ }
+		body { font-size: @sizelg; /* Sets base font size to 16px */ }
+		table { font-size: 100%; /* IE hack */ }
+		input, select, textarea, th, td { font-size: @sizelg; }
+
+		li{ 
+			position: relative; 
+			margin-left: -(@sizexl/2);
+			list-style: none;
+			list-style-type: none;
+			&.ts-file{
+				// margin-left: -1px !important;
+				a{
+					background: url(../img/icons/icon-document.svg) 0 @sizesm no-repeat;
+					// color: #fff;
+					padding-left: (@sizelg*2);
+					text-decoration: none;
+					display: block;
+					&[href *= '.pdf']	{ background: url(../img/icons/icon-document.svg) 0 0 no-repeat; }
+					&[href *= '.html']	{ background: url(../img/icons/icon-document.svg) 0 0 no-repeat; }
+					&[href $= '.css']	{ background: url(../img/icons/icon-document.svg) 0 0 no-repeat; }
+					&[href $= '.js']		{ background: url(../img/icons/icon-document.svg) 0 0 no-repeat; }
+					background-size: (@sizexl/2);
+
+				}
+			}
+
+			input{
+				position: absolute;
+				left: 0;
+				margin-left: 0;
+				opacity: 0;
+				z-index: 2;
+				cursor: pointer;
+				height: @sizelg;
+				width: @sizelg;
+				top: 0;
+			}
+			input + ol{
+				// background: url(../img/icons/icon-expand.svg) 40px 0 no-repeat;
+				// margin: -1em 0 0 -44px; /* 15px */
+				// height: @sizelg;
+				// background-size: (@sizexl/2);
+			}
+			input + ol > li { 
+				display: none; 
+				margin-left: -14px !important; 
+				padding-left: 1px; 
+			}
+			label{
+				background: url(../img/icons/icon-folder.svg) 0 @sizesm no-repeat;
+				cursor: pointer;
+				display: block;
+				padding-left: (@sizelg *2);
+				background-size: (@sizexl/2);
+			}
+			input:checked + ol{
+				// background: url(../img/icons/icon-collapse.svg) 0 @sizesm no-repeat;
+				// margin: -1.25em 0 0 -44px;  20px 
+				// padding: 1em 0 0 (@sizexl + @sizemd);
+				// height: auto;
+				// background-size: (@sizexl/2);
+			}
+			input:checked + ol > li { 
+				display: block; 
+				margin: 0 0 0.125em;  /* 2px */
+			}
+			input:checked + ol > li:last-child { 
+				margin: 0 0 0.063em; /* 1px */ 
+			}
+		}
+		&.ts-tree-no-icon{
+			li{
+				&.ts-file{
+					a{
+						background: none;
+						// color: #fff;
+						padding-left: 0;
+					}
+				}
+				label{
+					background: none;
+					padding-left: 0;
+				}
+			}
+		}
 	}
-		li input:checked + ol > li { display: block; margin: 0 0 0.125em;  /* 2px */}
-		li input:checked + ol > li:last-child { margin: 0 0 0.063em; /* 1px */ }
 }

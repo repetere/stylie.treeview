@@ -1,18 +1,14 @@
-<a name="ComponentModals"></a>
-#class: ComponentModals
+<a name="StylieTreeviews"></a>
+#class: StylieTreeviews
 **Members**
 
-* [class: ComponentModals](#ComponentModals)
-  * [new ComponentModals(el, options)](#new_ComponentModals)
-  * [componentModals.options](#ComponentModals#options)
-  * [componentModals._init()](#ComponentModals#_init)
-  * [componentModals._initEvents()](#ComponentModals#_initEvents)
-  * [componentModals._hide(modal)](#ComponentModals#_hide)
-  * [componentModals._show(modal)](#ComponentModals#_show)
+* [class: StylieTreeviews](#StylieTreeviews)
+  * [new StylieTreeviews(el, options)](#new_StylieTreeviews)
+  * [stylieTreeviews.getTreeHTML(modal)](#StylieTreeviews#getTreeHTML)
 
-<a name="new_ComponentModals"></a>
-##new ComponentModals(el, options)
-A module that represents a ComponentModals object, a componentTab is a page composition tool.
+<a name="new_StylieTreeviews"></a>
+##new StylieTreeviews(el, options)
+A module that represents a StylieTreeviews object, a componentTab is a page composition tool.
 
 **Params**
 
@@ -22,28 +18,8 @@ A module that represents a ComponentModals object, a componentTab is a page comp
 **Author**: Yaw Joseph Etse  
 **License**: MIT  
 **Copyright**: Copyright (c) 2015 Typesettin. All rights reserved.  
-<a name="ComponentModals#options"></a>
-##componentModals.options
-module default configuration
-
-<a name="ComponentModals#_init"></a>
-##componentModals._init()
-initializes modals and shows current tab.
-
-<a name="ComponentModals#_initEvents"></a>
-##componentModals._initEvents()
-handle tab click events.
-
-<a name="ComponentModals#_hide"></a>
-##componentModals._hide(modal)
-Hides a modal component.
-
-**Params**
-
-- modal `string` - name  
-
-<a name="ComponentModals#_show"></a>
-##componentModals._show(modal)
+<a name="StylieTreeviews#getTreeHTML"></a>
+##stylieTreeviews.getTreeHTML(modal)
 Shows a modal component.
 
 **Params**
