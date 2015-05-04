@@ -1,0 +1,220 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Stylie.treeview</title>
+  <meta name="description" content="Pure CSS collapsible tree menu">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Stylie.treeview</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Pure CSS collapsible tree menu</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/typesettin/stylie.treeview/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/typesettin/stylie.treeview/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/typesettin/stylie.treeview" class="code">View Stylie.treeview on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a id="stylietreeview" class="anchor" href="#stylietreeview" aria-hidden="true"><span class="octicon octicon-link"></span></a>stylie.treeview</h1>
+
+<p>Pure CSS collapsible tree menu, ported from: <a href="http://www.thecssninja.com/css/css-tree-menu">http://www.thecssninja.com/css/css-tree-menu</a></p>
+
+<h3>
+<a id="basic-html-structure" class="anchor" href="#basic-html-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic HTML structure</h3>
+
+<div class="highlight highlight-html"><pre>    &lt;<span class="pl-ent">ol</span>&gt;
+        &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span>document.pdf<span class="pl-pds">"</span></span>&gt;File 1&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+        &lt;<span class="pl-ent">li</span>&gt;
+            &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">"</span>subfolder1<span class="pl-pds">"</span></span>&gt;Subfolder 1&lt;/<span class="pl-ent">label</span>&gt;
+            &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>checkbox<span class="pl-pds">"</span></span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>subfolder1<span class="pl-pds">"</span></span> /&gt;
+            &lt;<span class="pl-ent">ol</span>&gt;
+                &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;File 2&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;File 2&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+                &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>&gt;&lt;<span class="pl-ent">a</span> <span class="pl-e">href</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;File 2&lt;/<span class="pl-ent">a</span>&gt;&lt;/<span class="pl-ent">li</span>&gt;
+            &lt;/<span class="pl-ent">ol</span>&gt;
+        &lt;/<span class="pl-ent">li</span>&gt;
+    &lt;/<span class="pl-ent">ol</span>&gt;</pre></div>
+
+<h3>
+<a id="css-for-treeview" class="anchor" href="#css-for-treeview" aria-hidden="true"><span class="octicon octicon-link"></span></a>CSS for treeview</h3>
+
+<div class="highlight highlight-css"><pre><span class="pl-ent">li</span> <span class="pl-ent">input</span> {
+    <span class="pl-c1"><span class="pl-c1">position</span></span>: <span class="pl-c1">absolute</span>;
+    <span class="pl-c1"><span class="pl-c1">left</span></span>: <span class="pl-c1">0</span>;
+    <span class="pl-c1"><span class="pl-c1">margin-left</span></span>: <span class="pl-c1">0</span>;
+    <span class="pl-c1"><span class="pl-c1">opacity</span></span>: <span class="pl-c1">0</span>;
+    <span class="pl-c1"><span class="pl-c1">z-index</span></span>: <span class="pl-c1">2</span>;
+    <span class="pl-c1"><span class="pl-c1">cursor</span></span>: <span class="pl-c1">pointer</span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>: <span class="pl-c1">1<span class="pl-k">em</span></span>;
+    <span class="pl-c1"><span class="pl-c1">width</span></span>: <span class="pl-c1">1<span class="pl-k">em</span></span>;
+    <span class="pl-c1"><span class="pl-c1">top</span></span>: <span class="pl-c1">0</span>;
+}
+<span class="pl-ent">li</span> <span class="pl-ent">label</span> {
+    <span class="pl-c1"><span class="pl-c1">background</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">folder-horizontal.png</span>) <span class="pl-c1">15<span class="pl-k">px</span></span> <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">no-repeat</span>;
+    <span class="pl-c1"><span class="pl-c1">cursor</span></span>: <span class="pl-c1">pointer</span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+    <span class="pl-c1"><span class="pl-c1">padding-left</span></span>: <span class="pl-c1">37<span class="pl-k">px</span></span>;
+}
+<span class="pl-ent">li</span> <span class="pl-ent">input</span> + <span class="pl-ent">ol</span> {
+    <span class="pl-c1"><span class="pl-c1">background</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">toggle-small-expand.png</span>) <span class="pl-c1">40<span class="pl-k">px</span></span> <span class="pl-c1">0</span> <span class="pl-c1">no-repeat</span>;
+    <span class="pl-c1"><span class="pl-c1">margin</span></span>: <span class="pl-c1">-0.938<span class="pl-k">em</span></span> <span class="pl-c1">0</span> <span class="pl-c1">0</span> <span class="pl-c1">-44<span class="pl-k">px</span></span>; <span class="pl-c">/* 15px */</span>
+    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>: <span class="pl-c1">1<span class="pl-k">em</span></span>;
+}
+<span class="pl-ent">li</span> <span class="pl-ent">input</span> + <span class="pl-ent">ol</span> &gt; <span class="pl-ent">li</span> {
+    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">none</span>;
+    <span class="pl-c1"><span class="pl-c1">margin-left</span></span>: <span class="pl-c1">-14<span class="pl-k">px</span></span> <span class="pl-k">!important</span>;
+    <span class="pl-c1"><span class="pl-c1">padding-left</span></span>: <span class="pl-c1">1<span class="pl-k">px</span></span>;
+}
+<span class="pl-ent">li</span> <span class="pl-ent">label</span> {
+    <span class="pl-c1"><span class="pl-c1">background</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">folder.png</span>) <span class="pl-c1">15<span class="pl-k">px</span></span> <span class="pl-c1">1<span class="pl-k">px</span></span> <span class="pl-c1">no-repeat</span>;
+}
+<span class="pl-ent">li</span><span class="pl-e">.file</span> <span class="pl-ent">a</span> {
+    <span class="pl-c1"><span class="pl-c1">background</span></span>: <span class="pl-c1">url</span>(<span class="pl-v">document.png</span>) <span class="pl-c1">0</span> <span class="pl-c1">-1<span class="pl-k">px</span></span> <span class="pl-c1">no-repeat</span>;
+    <span class="pl-c1"><span class="pl-c1">color</span></span>: <span class="pl-c1">#fff</span>;
+    <span class="pl-c1"><span class="pl-c1">padding-left</span></span>: <span class="pl-c1">21<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">text-decoration</span></span>: <span class="pl-c1">none</span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">block</span>;
+}
+<span class="pl-ent">li</span> {
+    <span class="pl-c1"><span class="pl-c1">position</span></span>: <span class="pl-c1">relative</span>;
+    <span class="pl-c1"><span class="pl-c1">margin-left</span></span>: <span class="pl-c1">-15<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">list-style</span></span>: <span class="pl-c1">none</span>;
+}
+<span class="pl-ent">li</span><span class="pl-e">.file</span> {
+    <span class="pl-c1"><span class="pl-c1">margin-left</span></span>: <span class="pl-c1">-1<span class="pl-k">px</span></span> <span class="pl-k">!important</span>;
+}
+<span class="pl-ent">li</span><span class="pl-e">.file</span> <span class="pl-ent">a</span>[href $= '<span class="pl-e">.pdf</span>']     { <span class="pl-c1"><span class="pl-c1">background-position</span></span>: <span class="pl-c1">-16<span class="pl-k">px</span></span> <span class="pl-c1">-1<span class="pl-k">px</span></span>; }
+<span class="pl-ent">li</span><span class="pl-e">.file</span> <span class="pl-ent">a</span>[href $= '<span class="pl-e">.html</span>']    { <span class="pl-c1"><span class="pl-c1">background-position</span></span>: <span class="pl-c1">-32<span class="pl-k">px</span></span> <span class="pl-c1">-1<span class="pl-k">px</span></span>; }
+<span class="pl-ent">li</span><span class="pl-e">.file</span> <span class="pl-ent">a</span>[href $= '<span class="pl-e">.css</span>']     { <span class="pl-c1"><span class="pl-c1">background-position</span></span>: <span class="pl-c1">-48<span class="pl-k">px</span></span> <span class="pl-c1">-1<span class="pl-k">px</span></span>; }
+<span class="pl-ent">li</span><span class="pl-e">.file</span> <span class="pl-ent">a</span>[href $= '<span class="pl-e">.js</span>']      { <span class="pl-c1"><span class="pl-c1">background-position</span></span>: <span class="pl-c1">-64<span class="pl-k">px</span></span> <span class="pl-c1">-1<span class="pl-k">px</span></span>; }</pre></div>
+
+<h2>
+<a id="generate-with-javascript" class="anchor" href="#generate-with-javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate with javascript</h2>
+
+<p>Sample json data</p>
+
+<div class="highlight highlight-json"><pre>var sampletree = {
+    <span class="pl-s"><span class="pl-pds">"</span>tree<span class="pl-pds">"</span></span>: [{
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-label<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>File Main 1<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file1<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-link<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>#mainlink<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-attributes<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>added-async-link another-class<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>this is a file link<span class="pl-pds">"</span></span>
+        }
+    }, {
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>folder<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-label<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Folder 2<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>folder2<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-attributes<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>added-async-link another-class<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>this is a file link<span class="pl-pds">"</span></span>
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>tree-item-folder-contents<span class="pl-pds">"</span></span>: [{
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-label<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>File Main 3<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file3<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-link<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>#mainlink<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-attributes<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>added-async-link another-class<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>this is a file link<span class="pl-pds">"</span></span>
+            }
+        }, {
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-label<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>File Main 4<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>file4<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-link<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>#mainlink<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>tree-item-attributes<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>added-async-link another-class<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>this is a file link<span class="pl-pds">"</span></span>
+            }
+        }]
+    }]
+};
+</pre></div>
+
+<h3>
+<a id="html-container-to-insert" class="anchor" href="#html-container-to-insert" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML container to insert</h3>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>tree-example-1<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>ts-col-span6 <span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<h3>
+<a id="javascript-helper-to-generate-markup" class="anchor" href="#javascript-helper-to-generate-markup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Javascript helper to generate markup</h3>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> StylieTreeview <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>stylie.treeview<span class="pl-pds">'</span></span>),
+    tree1 <span class="pl-k">=</span> sampletree,
+    StylieTreeview1;
+
+<span class="pl-c1">window</span>.addEventListener(<span class="pl-s"><span class="pl-pds">'</span>load<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> () {
+    StylieTreeview1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StylieTreeview</span>({
+        tree<span class="pl-k">:</span> tree1
+    });
+    <span class="pl-c1">document</span>.querySelector(<span class="pl-s"><span class="pl-pds">'</span>#tree-example-1<span class="pl-pds">'</span></span>).innerHTML <span class="pl-k">=</span> StylieTreeview1.getTreeHTML();
+}, <span class="pl-c1">false</span>);</pre></div>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p><em>Make sure you have grunt installed</em></p>
+
+<pre><code>$ npm install -g grunt-cli
+</code></pre>
+
+<p>Then run grunt watch</p>
+
+<pre><code>$ grunt watch
+</code></pre>
+
+<p>For generating documentation</p>
+
+<pre><code>$ grunt doc
+$ jsdoc2md lib/**/*.js index.js &gt; doc/api.md
+</code></pre>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/typesettin" class="avatar"><img src="https://avatars3.githubusercontent.com/u/7513943?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/typesettin">typesettin</a> maintains <a href="https://github.com/typesettin/stylie.treeview">Stylie.treeview</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/typesettin/stylie.treeview/tarball/master" class="tar">tar</a><a href="https://github.com/typesettin/stylie.treeview/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
