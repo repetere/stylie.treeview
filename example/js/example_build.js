@@ -26,19 +26,19 @@ var extend = require('util-extend'),
 	util = require('util');
 
 /**
- * A module that represents a ComponentModals object, a componentTab is a page composition tool.
+ * A module that represents a StylieModals object, a componentTab is a page composition tool.
  * @{@link https://github.com/typesettin/stylie.treeview}
  * @author Yaw Joseph Etse
  * @copyright Copyright (c) 2015 Typesettin. All rights reserved.
  * @license MIT
- * @constructor ComponentModals
+ * @constructor StylieModals
  * @requires module:util-extent
  * @requires module:util
  * @requires module:events
  * @param {object} el element of tab container
  * @param {object} options configuration options
  */
-var ComponentModals = function (options) {
+var StylieModals = function (options) {
 	events.EventEmitter.call(this);
 
 	// this.el = el;
@@ -66,10 +66,10 @@ var closeModalClickHandler = function (e) {
 	}
 };
 
-util.inherits(ComponentModals, events.EventEmitter);
+util.inherits(StylieModals, events.EventEmitter);
 
 /** module default configuration */
-ComponentModals.prototype.options = {
+StylieModals.prototype.options = {
 	start: 0,
 	modal_overlay_selector: '.ts-modal-overlay',
 	modal_elements: '.ts-modal',
@@ -86,7 +86,7 @@ ComponentModals.prototype.options = {
  * initializes modals and shows current tab.
  * @emits modalsInitialized
  */
-ComponentModals.prototype._init = function () {
+StylieModals.prototype._init = function () {
 	var body = document.querySelector('body');
 	htmlEl = document.querySelector('html');
 
@@ -109,7 +109,7 @@ ComponentModals.prototype._init = function () {
 /**
  * handle tab click events.
  */
-ComponentModals.prototype._initEvents = function () {
+StylieModals.prototype._initEvents = function () {
 	if (this.options.close_modal_on_overlay_click === true) {
 		this.options.overlay.addEventListener('click', closeOverlayOnClick.bind(this), false);
 	}
@@ -121,10 +121,10 @@ ComponentModals.prototype._initEvents = function () {
  * @param {string} modal name
  * @emits showModal
  */
-ComponentModals.prototype._hide = function (modal_name) {
+StylieModals.prototype._hide = function (modal_name) {
 	var modal = this.options.modals[modal_name];
 	classie.remove(modal, 'ts-modal-show');
-	this.options.current_modal = '';
+	// this.options.current_modal = '';
 
 	modal.removeEventListener('click', closeModalClickHandler, false);
 
@@ -144,7 +144,7 @@ ComponentModals.prototype._hide = function (modal_name) {
  * @param {string} modal name
  * @emits showModal
  */
-ComponentModals.prototype._show = function (modal_name) {
+StylieModals.prototype._show = function (modal_name) {
 	var modal = this.options.modals[modal_name],
 		hasModalEffect = false;
 
@@ -172,14 +172,14 @@ ComponentModals.prototype._show = function (modal_name) {
 		modal_name: modal_name
 	});
 };
-module.exports = ComponentModals;
+module.exports = StylieModals;
 
 },{"classie":3,"events":5,"util":9,"util-extend":10}],3:[function(require,module,exports){
 /*
  * classie
  * http://github.amexpub.com/modules/classie
  *
- * Copyright (c) 2015 Yaw Joseph Etse. All rights reserved.
+ * Copyright (c) 2013 AmexPub. All rights reserved.
  */
 
 module.exports = require('./lib/classie');
@@ -599,46 +599,72 @@ if (typeof Object.create === 'function') {
 // shim for using process in browser
 
 var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
 
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
-
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
     }
-
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
-
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
-        };
+    if (queue.length) {
+        drainQueue();
     }
+}
 
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
-    };
-})();
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
 
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            currentQueue[queueIndex].run();
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (!draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
 process.title = 'browser';
 process.browser = true;
 process.env = {};
 process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 
@@ -652,13 +678,14 @@ process.emit = noop;
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
-}
+};
 
 // TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
+process.umask = function() { return 0; };
 
 },{}],8:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
@@ -1295,23 +1322,23 @@ function extend(origin, add) {
 },{}],11:[function(require,module,exports){
 'use strict';
 
-var ComponentModal = require('../../index'),
+var StylieModal = require('../../index'),
 	classie = require('classie'),
-	ComponentModal1,
+	StylieModal1,
 	modalButtonContainer;
 
 var openModalButtonHandler = function (e) {
 	if (classie.has(e.target, 'md-trigger')) {
-		ComponentModal1.show(e.target.getAttribute('data-modal'));
+		StylieModal1.show(e.target.getAttribute('data-modal'));
 	}
 };
 
 window.addEventListener('load', function () {
 	modalButtonContainer = document.querySelector('#td-modal-buttons');
-	ComponentModal1 = new ComponentModal({});
+	StylieModal1 = new StylieModal({});
 	modalButtonContainer.addEventListener('click', openModalButtonHandler, false);
 
-	window.ComponentModal1 = ComponentModal1;
+	window.StylieModal1 = StylieModal1;
 }, false);
 
 },{"../../index":1,"classie":3}]},{},[11]);

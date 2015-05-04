@@ -6,8 +6,15 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/stylie.treeview.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Nifty Treeview Effects with CSS Transitions and Animations" />
-  <meta name="keywords" content="modal, window, overlay, modern, box, css transition, css animation, effect, 3d, perspective" />
+
+
+  <meta name="author" content="The CSS Ninja">
+  <meta name="keywords" content="CSS, Tree menu, checked pseudo-class, CSS Ninja">
+  <meta name="description" content="Create a pure CSS tree folder structure with collapsible folders utilising checkboxes along with the checked pseudo-class">
+  <meta name="robots" content="all">
+  <meta name="copyright" content="The CSS Ninja">
+
+
   <link rel="icon" type="image/png" href="img/favicon.png">
   <script src='js/example.min.js'></script>
 </head>
@@ -22,30 +29,16 @@
           <small>Some inspiration for different treeview appearances</small>
         </h3>
         <div class="ts-row">
-          <div class="ts-col-span6 ts-screenxs-col-span12">
-            <p>There are many possibilities for modal overlays to appear. Here are some modern ways of showing them using CSS transitions and animations.</p>
-            <p>Ported from CoDrops: <a href="http://tympanus.net/codrops/2013/06/25/nifty-modal-window-effects/">Nifty Treeview Effects</a>
-            </p>
-            <p>
-              <strong> Full API <a href="http://typesettin.github.io/stylie.treeview/api/html">documentation</a>
-              </strong>
-            </p>
+          <div class="ts-col-span6 ">
+            <% include shared/tree %>
           </div>
           <div class="ts-col-span6 ts-screenxs-col-span12">
-
-            <div id="td-modal-buttons" class="ts-container-margin-lg">
-              <% include shared/buttons %>
-            </div>
+            some other random content
           </div>
         </div>
-
       </section>
     </article>
   </main>
-  <div class="ts-screenxx-hidden">
-    <% include shared/modals %>
-      <div class="ts-modal-overlay ts-bg-accent-color"></div>
-  </div>
   <!-- the overlay element -->
   <script>
   (function(i, s, o, g, r, a, m) {
