@@ -1,6 +1,7 @@
 # stylie.treeview
 Pure CSS collapsible tree menu, ported from: http://www.thecssninja.com/css/css-tree-menu
 
+### Basic HTML structure
 ```html
 	<ol>
 	    <li class="file"><a href="document.pdf">File 1</a></li>
@@ -16,6 +17,7 @@ Pure CSS collapsible tree menu, ported from: http://www.thecssninja.com/css/css-
 	</ol>
 ```
 
+### CSS for treeview
 ```css
 li input {
     position: absolute;
@@ -70,6 +72,7 @@ li.file a[href $= '.js']      { background-position: -64px -1px; }
 ```
 
 ## Generate with javascript
+Sample json data
 ```json
 var sampletree = {
 	"tree": [{
@@ -113,11 +116,13 @@ var sampletree = {
 
 ```
 
+### HTML container to insert
 ```html
 <div id="tree-example-1" class="ts-col-span6 ">
 </div>
 ```
 
+### Javascript helper to generate markup
 ```javascript
 var StylieTreeview = require('stylie.treeview'),
 	tree1 = sampletree,
